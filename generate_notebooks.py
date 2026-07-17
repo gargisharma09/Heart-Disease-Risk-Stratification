@@ -108,12 +108,10 @@ if df['target'].max() > 1:
 
 # Handle missing values
 df.replace('?', np.nan, inplace=True)
-df['ca'] = pd.to_numeric(df['ca'], errors='coerce')
-df['thal'] = pd.to_numeric(df['thal'], errors='coerce')
+df = df.apply(pd.to_numeric, errors='coerce')
 
-# Impute with median
-df['ca'].fillna(df['ca'].median(), inplace=True)
-df['thal'].fillna(df['thal'].median(), inplace=True)
+# Impute with median for all columns
+df.fillna(df.median(), inplace=True)
 
 print("Missing values after imputation:\\n", df.isnull().sum())
 '''),
